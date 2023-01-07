@@ -12,9 +12,11 @@ import java.util.List;
 
 public  class Studentslisradapter extends RecyclerView.Adapter<Studentslisradapter.MyViewHolder> {
     List <Students> studentsList;
+    itemclick callback;
 
-    public Studentslisradapter(List<Students> studentsList) {
+    public Studentslisradapter(List<Students> studentsList,itemclick cback) {
         this.studentsList = studentsList;
+        this.callback=cback;
     }
 
     @NonNull
@@ -29,14 +31,19 @@ public  class Studentslisradapter extends RecyclerView.Adapter<Studentslisradapt
 
         Students students=studentsList.get(i);
         myViewHolder.txtname.setText(students.getName());
-        myViewHolder.txtname.setText(students.getEmail());
+        myViewHolder.txtemail.setText(students.getEmail());
         myViewHolder.btn.setText(students.getMobile());
-
+        myViewHolder.btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              callback.itemclick();
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return studentsList.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
@@ -48,7 +55,7 @@ public  class Studentslisradapter extends RecyclerView.Adapter<Studentslisradapt
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             txtname=itemView.findViewById(R.id.textView);
-            txtname=itemView.findViewById(R.id.textView2);
+            txtemail=itemView.findViewById(R.id.textView2);
             btn=itemView.findViewById(R.id.button);
         }
     }
